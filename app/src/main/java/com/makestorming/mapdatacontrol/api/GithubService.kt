@@ -12,27 +12,26 @@ import retrofit2.http.Query
 private const val TAG = "GithubService"
 private const val IN_QUALIFIER = "in:name,description"
 
-fun getService(
+fun searchRepos(
     service: GithubService,
     query: String,
     page : Int,
     itemsPerPage: Int,
-    onSuccess : (repos: List<Repo>) -> UInt,
-    onError : (error: String) -> UInt
+    onSuccess : (repos: List<Repo>) -> Unit,
+    onError : (error: String) -> Unit
 ){
-
     Log.d(TAG, "query: $query, page: $page, itemsPerPage: $itemsPerPage")
 
     val apiQuery = query + IN_QUALIFIER
 
-    service.searchRepo(query, page, itemsPerPage).enqueue(object: Callback<RepoSearchResponse>{
+    service.searchRepos(apiQuery, page, itemsPerPage).enqueue(object: Callback<RepoSearchResponse>{
         override fun onFailure(call: Call<RepoSearchResponse>, t: Throwable) {
             Log.d(TAG, "fail to get data")
             onError(t.message ?: "unknown error")
         }
 
         override fun onResponse(
-            call: Call<RepoSearchResponse>,
+            call: Call<RepoSearchResponse>?,
             response: Response<RepoSearchResponse>
         ) {
             Log.d(TAG, "got a response $response")
@@ -52,7 +51,7 @@ fun getService(
 interface GithubService {
 
     @GET("search/repositories?sort=stars")
-    fun searchRepo(
+    fun searchRepos(
         @Query("q") q: String,
         @Query("page") page: Int,
         @Query("per_page") itemsPerPage: Int

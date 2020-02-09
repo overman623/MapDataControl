@@ -25,6 +25,8 @@ class MainActivity : AppCompatActivity() {
     안드로이드 출시 스펙 작성
     */
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
