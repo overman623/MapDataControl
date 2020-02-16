@@ -49,6 +49,7 @@ class GithubRepository (context: Context){
             networkErrors.postValue(error)
             isRequestInProgress = false
         })
+
     }
 
     companion object {

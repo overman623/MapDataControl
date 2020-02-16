@@ -5,6 +5,10 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import com.makestorming.mapdatacontrol.databinding.ActivityMainBinding
+import com.makestorming.mapdatacontrol.ui.SearchRepositoriesViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -25,14 +29,14 @@ class MainActivity : AppCompatActivity() {
     안드로이드 출시 스펙 작성
     */
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-
+        val model : SearchRepositoriesViewModel = ViewModelProvider(this).get(SearchRepositoriesViewModel::class.java)
+        val bind : ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        bind.viewModel = model
+        bind.lifecycleOwner = this
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
