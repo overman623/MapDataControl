@@ -32,16 +32,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setSupportActionBar(toolbar)
         val model : SearchRepositoriesViewModel = ViewModelProvider(this).get(SearchRepositoriesViewModel::class.java)
         val bind : ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         bind.viewModel = model
         bind.lifecycleOwner = this
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
 
     }
 
