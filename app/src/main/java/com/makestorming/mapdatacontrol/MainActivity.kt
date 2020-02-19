@@ -1,15 +1,14 @@
 package com.makestorming.mapdatacontrol
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.makestorming.mapdatacontrol.databinding.ActivityMainBinding
 import com.makestorming.mapdatacontrol.ui.SearchRepositoriesViewModel
-
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -30,12 +29,17 @@ class MainActivity : AppCompatActivity() {
     */
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         val model : SearchRepositoriesViewModel = ViewModelProvider(this).get(SearchRepositoriesViewModel::class.java)
         val bind : ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         bind.viewModel = model
         bind.lifecycleOwner = this
+
+        val decoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        list.addItemDecoration(decoration)
+        setupScrollListener()
+
+        initAdapter()
 
     }
 
